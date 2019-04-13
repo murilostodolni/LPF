@@ -48,4 +48,3 @@ fun main(args: Array<String>) {
 
 	println(somaN(3)) // operacao: x + 5 = 3 + 5 = 8
 }
-

@@ -47,6 +47,8 @@ fun auxComprimir(l1: List, i: Int): List = when{
 fun main(args: Array<String>) {
 	val lista = Node(1, Node(2, Node(3, Nil)))
 	val lista1 = Node(5, Node(5, Node(6, Node(6, Node(7, Nil)))))
+
+	//val listdList = listdList(Node(1, Node(2, Node(3, Nil))), listdList(Node(5, Node(5, Node(6, Node(6, Node(7, Nil))))), Nil))
  
 	println(concatenar(lista, lista1))
  

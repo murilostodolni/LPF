@@ -20,8 +20,6 @@ fun maiorValor(arv: Arvore): Int = when(arv){
 	is NodeArvore -> {if(arv.direita != Vazio && arv.esquerda != Vazio) maiorValor(arv.direita) else arv.info}
 	else -> 0
 }
-		//if(arv is NodeArvore)
-			//if(arv.direita != Vazio) maiorValor(arv.direita) else arv.info
 
 
 fun main(args: Array<String>) {

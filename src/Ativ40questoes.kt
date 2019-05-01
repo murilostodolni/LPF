@@ -2,7 +2,7 @@ abstract class Lista<out T>
 
 data class NoLista<T> (val info: T, val prox: Lista<T>): Lista<T>()
 
-object Null: Lista <Nothing>()
+object Null: Lista<Nothing>()
 
 fun menorDeDois(x: Int, y: Int) = if(x<y) x else y
 
@@ -40,18 +40,20 @@ fun <T> ocorrencias(l: Lista<T>, x: T): Int = when{
 
 fun <T> unicaOcorrencia(l: Lista<T>, elem: T): Boolean = ocorrencias(l, elem) == 1
 
+//questao 11
 fun maiorQue(l: Lista<Int>, x: Int): Lista<Int> = when {
 	l is NoLista -> if(l.info > x) NoLista(l.info, maiorQue(l.prox, x)) else maiorQue(l.prox, x)
 	else -> Null
 }
 
+//questao 12
 fun <T> concatena(l1: Lista<T>, l2: Lista<T>): Lista<T> = when(l1){
 	is NoLista -> NoLista(l1.info, concatena(l1.prox, l2))
 	else -> l2
 }
 
 fun <T> removeOcorrencia(l:Lista<T>, elem: T): Lista <T> = when{
-	l is NoLista -> if(l.info == elem) removeOcorrencia(l.prox, elem) else NoLista(l.info, removeOcorrencia(l.prox, elem))
+	l is NoLista -> if(l.info == elem) l.prox else NoLista(l.info, removeOcorrencia(l.prox, elem))
 	else -> Null
 }
 
@@ -76,6 +78,9 @@ fun <T> diminui(inicio: Int, fim: Int, l: Lista<T>): Lista<T> = when{
 	else -> Null
 }
 
+//questao 16 -> igual a questao 11
+
+//questao 17
 fun geraSequencia(num: Int): Lista<Int> = when {
 	num > 0 -> {
 		val n = -1*num
@@ -84,16 +89,17 @@ fun geraSequencia(num: Int): Lista<Int> = when {
 	else -> Null
 }
 
+//questao 18
 fun <T> inverte(l: Lista<T>): Lista<T> = when(l){
-	is NoLista -> concatena(NoLista(l.info, Null), inverte(l.prox))
+	is NoLista -> concatena(inverte(l.prox), NoLista(l.info, Null))
 	else -> Null
 }
 
 //FAZER questao 19
 
 //questao 20
-fun <T> intercala(l1: Lista<T>, l2: Lista<T>): Lista<T> = when{
-	l1 is NoLista -> NoLista(l1.info, intercala(l2, l1.prox))
+fun <T> intercala(l1: Lista<T>, l2: Lista<T>): Lista<T> = when(l1){
+	is NoLista -> NoLista(l1.info, intercala(l2, l1.prox))
 	else -> l2
 }
 
@@ -122,14 +128,25 @@ fun insereOrdenado(l: Lista<Int>, num: Int): Lista<Int> = when(l){
 	else -> NoLista(num, l)
 }
 
-//questao 25
-fun <T> isOrdenado(l: Lista<T>): Boolean = when(l) {
-	is NoLista -> maiorDeDoisAux(l.info, isOrdenado(l.prox))
-	else -> false
+// FAZER questao 25
+
+// FAZER questao 26
+
+// questao 27
+fun <T>rodarEsquerda(l: Lista<T>, num: Int): Lista<T> = when{
+	l is NoLista && num == 0 -> l
+	l is NoLista && num > 0 -> concatena(rodarEsquerda(l.prox, num-1), NoLista(l.info,Null))
+	else -> Null
 }
 
-// aux questao 25
-fun maiorDeDoisAux(x: Int, y: Int): Boolean = if(x < y) true else false
+//questao 28
+//fun <T> rodarDireita(l: Lista<T>, num: Int): Lista<T> = when{
+	
+//}
+
+/*fun todasMaiusculas(s: String): String =
+		if(s.get(num) > 'a')
+	*/		
 
 fun main(args: Array<String>) {
 	//val no = NoLista(7, NoLista(4, NoLista(3, NoLista(5, NoLista(7, NoLista(4, NoLista(4, NoLista(6, NoLista(7, Null)))))))))
@@ -137,8 +154,8 @@ fun main(args: Array<String>) {
 	//println(removeTodasOco(no))
 	//println(maiorQue(no, 5))
  
-	val l = NoLista(1, NoLista(2, NoLista(4, NoLista(5, NoLista(6, NoLista(7, Null))))))
-	val l1 = NoLista(2, NoLista(6, NoLista(9, NoLista(10, Null))))
+	//val l = NoLista(1, NoLista(2, NoLista(4, NoLista(5, NoLista(6, NoLista(7, Null))))))
+	//val l1 = NoLista(2, NoLista(6, NoLista(9, NoLista(10, Null))))
  
 	//println(diminui(1, 4, l))
  
@@ -148,5 +165,9 @@ fun main(args: Array<String>) {
  
 	//println(sequencia(0, 2))
  
-	//println(insereOrdenado(l, 3))
+	//println(inverte(l))
+ 
+	val q27 = NoLista('a', NoLista('s', NoLista('d', NoLista('f', NoLista('g', Null)))))
+ 
+	println(rodarEsquerda(q27, 3))
 }

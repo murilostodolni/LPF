@@ -130,7 +130,16 @@ fun insereOrdenado(l: Lista<Int>, num: Int): Lista<Int> = when(l){
 
 // FAZER questao 25
 
-// FAZER questao 26
+//questao 26
+fun ordena(l: Lista<Int>): Lista<Int> = when {
+	l is NoLista -> insereNaOrdem(ordena(l.prox), l.info)
+	else -> Null
+}
+//aux para questao 26
+fun insereNaOrdem(l: Lista<Int>, n: Int): Lista<Int> = when(l){
+	is NoLista -> if(n > l.info) NoLista(l.info, insereNaOrdem(l.prox, n)) else NoLista(n, l)
+	else -> NoLista(n, Null)
+}
 
 // questao 27
 fun <T>rodarEsquerda(l: Lista<T>, num: Int): Lista<T> = when{
@@ -139,14 +148,13 @@ fun <T>rodarEsquerda(l: Lista<T>, num: Int): Lista<T> = when{
 	else -> Null
 }
 
-//questao 28
-//fun <T> rodarDireita(l: Lista<T>, num: Int): Lista<T> = when{
-	
-//}
 
-/*fun todasMaiusculas(s: String): String =
-		if(s.get(num) > 'a')
-	*/		
+//questao da prova		
+fun <T> verificaSequencia(l1: Lista<T>, l2: Lista<T>): Boolean = when {
+	l1 is NoLista && l2 is NoLista -> if(l1.info == l2.info) verificaSequencia(l1.prox, l2.prox) else verificaSequencia(l1.prox, l2)
+	l2 is Null -> true
+	else -> false
+}
 
 fun main(args: Array<String>) {
 	//val no = NoLista(7, NoLista(4, NoLista(3, NoLista(5, NoLista(7, NoLista(4, NoLista(4, NoLista(6, NoLista(7, Null)))))))))
@@ -154,8 +162,8 @@ fun main(args: Array<String>) {
 	//println(removeTodasOco(no))
 	//println(maiorQue(no, 5))
  
-	//val l = NoLista(1, NoLista(2, NoLista(4, NoLista(5, NoLista(6, NoLista(7, Null))))))
-	//val l1 = NoLista(2, NoLista(6, NoLista(9, NoLista(10, Null))))
+	val l = NoLista(4, NoLista(2, NoLista(1, NoLista(3, Null))))
+	val l1 = NoLista(6, NoLista(7, Null))
  
 	//println(diminui(1, 4, l))
  
@@ -167,7 +175,13 @@ fun main(args: Array<String>) {
  
 	//println(inverte(l))
  
-	val q27 = NoLista('a', NoLista('s', NoLista('d', NoLista('f', NoLista('g', Null)))))
+	//val q27 = NoLista('a', NoLista('s', NoLista('d', NoLista('f', NoLista('g', Null)))))
  
-	println(rodarEsquerda(q27, 3))
+	//println(rodarEsquerda(q27, 3))
+ 
+	//println(verificaSequencia(l, l1))
+ 
+	println(ordena(l))
+ 
+	println(l)
 }
